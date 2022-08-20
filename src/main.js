@@ -13,7 +13,11 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '/', redirect: '/teams'},
-        { path: '/teams', name: 'teams', components: {
+        { 
+         path: '/teams', 
+         name: 'teams', 
+         meta: { needsAuth: true },
+         components: {
          default: TeamsList,
          footer: TeamsFooter
         }, children: [
@@ -49,6 +53,12 @@ router.beforeEach(function(to, from, next) {
     console.log('Global beforeEach');
     console.log(to, from);
 
+    if(to.meta.needsAuth) {
+        console.log('Needs auth!');
+        next();
+    } else {
+        next();
+    }
     // if(to.name === 'team-members') {
     //     next();
     // } else {
