@@ -1,36 +1,51 @@
 <template>
   <section class="container">
-    <h2>{{ user.name }}</h2>
-    <h3>{{ user.age }}</h3>
+    <h2>{{ userName }}</h2>
+    <h3>{{ age }}</h3>
+    <button @click="setAge">Change Age</button>
   </section>
 </template>
 
 <script>
-import { reactive } from 'vue';
+import { ref } from 'vue';
+
+// import { ref, reactive, isRef, isReactive, toRefs } from 'vue';
 
 export default {
   setup() {
-    // const uName = ref('Maximilian');
-    // const uAge = ref(31);
-    const user = reactive({
-      name: 'Maximilian',
-      age: 31,
-    });
+    const uName = ref('Maximilian');
+    const uAge = ref(31);
+    // const user = reactive({
+    //   name: 'Maximilian',
+    //   age: 31,
+    // });
 
-    setTimeout(function () {
-      // uName.value = 'Max';
-      // uAge.value = 32;
-      user.name = 'Max';
-      user.age = 32;
-    }, 2000);
+    // console.log(isRef(uAge));
+    // console.log(isReactive(user), user.age);
 
-    return { user: user };
+    function setNewAge() {
+      uAge.value = 33;
+    }
+
+    // toRefs - will convert all the properties of object refs means reactive
+
+    // const userRefs = toRefs(user);
+
+    // return { user: user, userName: userRefs.name, age: userRefs.age };
+
+    return { userName: uName, age: uAge, setAge: setNewAge };
   },
   // data() {
   //   return {
   //     userName: 'Maximilian',
+  //     age: 31
   //   };
   // },
+  // methods: {
+  //   setNewAge() {
+  //     this.age = 32;
+  //   }
+  // }
 };
 </script>
 
